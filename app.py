@@ -7,8 +7,8 @@ from time import time
 import datetime
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "aaffrreennaa"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://sharique015678:covid-help@sharique015678.mysql.pythonanywhere-services.com/sharique015678$resources".format(user='sharique015678', password='covid-help', server='sharique015678.mysql.pythonanywhere-services.com', database='sharique015678$resources')
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://sharique015678:covid-help@sharique015678.mysql.pythonanywhere-services.com/sharique015678$resources".format(user='sharique015678', password='covid-help', server='sharique015678.mysql.pythonanywhere-services.com', database='sharique015678$resources')
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
