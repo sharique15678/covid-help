@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <style>
+      .active {
+        border-bottom: solid 3px #0a6efd;
+      }
+    </style>
+    <title>Covid-19 Help - Your Covid-19 Leads In The Town</title>
+  </head>
+  <body>
+    <header class="container-fluid row justify-content-center mt-3">
+      <div class="col-12 col-md-10 col-lg-6">
+        <h1 class="text-success text-center">COVID-19 HELP</h1>
+        <div class="row mt-2">
+          <div class="col text-center text-primary active">
+            <h2>
+                <a href="{{url_for('home')}}"
+              style="text-decoration: none;
+              color: unset;">Get Help</a></h2>
+          </div>
+          <div class="col text-center text-primary">
+            <h2> <a href="{{url_for('give_help')}}"
+              style="text-decoration: none;
+              color: unset;">Give Help</a> </h2>
+          </div>
+        </div>
+      </div>
+    </header>
+    {% if results == [] %}
+
+    <main class="container-fluid row justify-content-center mt-3">
+        <div class="col-12 col-md-10 col-lg-6">
+            <h3 class="text-center text-danger">
+                We were unable to find any Result Matching Your Search.
+                Please Try Again after some Time or Search Twitter for Better results.
+            </h3>
+            <a class="btn btn-warning w-100 mt-5" href="https://covid19-twitter.in/"> Search Twitter </a>
+          </div>
+      </main>
+    {% else %}
+    <main class="container-fluid row justify-content-center mt-3">
+        <div class="col-12 col-md-10 col-lg-6">
+            <h2 class="text-center text-success">Search Results Near You</h2>
+            <h4 class="text-center text-success">
+                for
+                {% for need in query.needs %}
+                    {{need}},&nbsp;
+                {% endfor %}
+                {% if query.other != "" %}
+                and {{query.other}}
+                {% endif %}
+                in 
+                {{query.city}}({{query.state}})</h4>
+            <ol>
+                {% for result in results %}
+                <hr>
+                <h5 class="text-center text-primary">Updated {{result.time}} <br> {{result.city}} ({{result.state}})</h5>
+                <li class="row container-fluid mt-2 mb-3-2">
+                    <div class="col">
+                        <ul>
+                            <h6>Available</h6>
+                            {% if result.beds == True %}
+                                <li>Beds</li>
+                            {% endif %}
+                            {% if result.icu == True %}
+                                <li>ICU</li>
+                            {% endif %}
+                            {% if result.oxygen == True %}
+                            <li>Oxygen</li>
+                            {% endif %}
+                            {% if result.ventilator == True %}
+                            <li>Ventilator</li>
+                            {% endif %}
+                            {% if result.tests == True %}
+                            <li>Tests</li>
+                            {% endif %}
+                            {% if result.fabiflu == True %}
+                            <li>Fabiflu</li>
+                            {% endif %}
+                            {% if result.remdesivir == True %}
+                            <li>Remdesivir</li>
+                            {% endif %}
+                            {% if result.favipiravir == True %}
+                            <li>Favipiravir</li>
+                            {% endif %}
+                            {% if result.tocilizumab == True %}
+                            <li>Tocilizumab</li>
+                            {% endif %}
+                            {% if result.plasma == True %}
+                            <li>Plasma</li>
+                            {% endif %}
+                            {% if result.food == True %}
+                            <li>Food</li>
+                            {% endif %}
+                            {% if result.generic == True %}
+                            <li>Generic</li>
+                            {% endif %}
+                            {% if result.others != "" %}
+                            <li>
+                                {{result.others}}
+                            </li>
+                            {% endif %}
+                            
+                        </ul> 
+                    </div>
+                   <div class="col">
+                    Time : {{result.time}}  <br>
+                    Name : {{result.name}} <br>
+                    Phone Number : <a href="tel:{{result.phone}}"
+                    style="text-decoration: none;">{{result.phone}}</a> <br>
+                    Address : {{result.address}}
+                   </div>
+                </li>
+                {% endfor %}
+            </ol>
+            <h5 class="text-center text-dark">
+                Please Make Sure That You are Paying Right Person.
+                Don't Panic, Everything Will be fine.
+                If you Still don't get what you are looking for then 
+                try searching on twitter by the link Below.
+            </h5>
+            <a class="btn btn-warning w-100 mt-2 mb-3" href="https://covid19-twitter.in/"> Search Twitter </a>
+        </div>
+    </main>
+    <footer>
+      <h6 class="text-center">Made By
+         <a href="http://www.dev-sharique.in/" class="text-decoration-none">Md Sharique</a>
+          For India And It's Brave COVID Warriors</h6>
+    </footer>
+    {% endif %}
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
